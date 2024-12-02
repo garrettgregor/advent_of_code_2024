@@ -4,7 +4,7 @@ require "historian_hysteria"
 
 RSpec.describe HistorianHysteria do
   describe "#initialize" do
-    let!(:file_path) { "./fixtures/instructions.txt" }
+    let!(:file_path) { "./fixtures/example_1.txt" }
     let!(:historian) { HistorianHysteria.new(file_path) }
 
     it "starts with a list" do
@@ -24,23 +24,31 @@ RSpec.describe HistorianHysteria do
   end
 
   describe "instance_methods" do
-    let!(:file_path) { "./fixtures/instructions.txt" }
-    let!(:historian) { HistorianHysteria.new(file_path) }
+    context "part 1" do
 
-    describe "#differences" do
-      it "creates a list of the differences between the two lists" do
-        differences = [2, 1, 0, 1, 2, 5]
+      let!(:file_path) { "./fixtures/example_1.txt" }
+      let!(:historian) { HistorianHysteria.new(file_path) }
 
-        expect(historian.differences).to eq(differences)
+      describe "#differences" do
+        it "creates a list of the differences between the two lists" do
+          differences = [2, 1, 0, 1, 2, 5]
+
+          expect(historian.differences).to eq(differences)
+        end
+      end
+
+      describe "#sum_of_differences" do
+        it "returns a sum of all the differences added together" do
+          sum = 11
+
+          expect(historian.sum_of_differences).to eq(sum)
+        end
       end
     end
 
-    describe "#sum_of_differences" do
-      it "returns a sum of all the differences added together" do
-        sum = 11
-
-        expect(historian.sum_of_differences).to eq(sum)
-      end
+    context "part 2" do
+      let!(:file_path) { "./fixtures/example_2.txt" }
+      let!(:historian) { HistorianHysteria.new(file_path) }
     end
   end
 end
