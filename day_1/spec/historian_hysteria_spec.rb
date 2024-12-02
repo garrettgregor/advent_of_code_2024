@@ -8,7 +8,7 @@ RSpec.describe HistorianHysteria do
     let!(:historian) { HistorianHysteria.new(file_path) }
 
     it "starts with a list" do
-      list = [["3", "4"], ["4", "3"], ["2", "5"], ["1", "3"], ["3", "9"], ["3", "3"]]
+      list = [%w[3 4], %w[4 3], %w[2 5], %w[1 3], %w[3 9], %w[3 3]]
 
       expect(historian).to be_a(HistorianHysteria)
       expect(historian.list).to eq(list)
@@ -25,7 +25,6 @@ RSpec.describe HistorianHysteria do
 
   describe "instance_methods" do
     context "part 1" do
-
       let!(:file_path) { "./fixtures/example_1.txt" }
       let!(:historian) { HistorianHysteria.new(file_path) }
 
@@ -49,6 +48,30 @@ RSpec.describe HistorianHysteria do
     context "part 2" do
       let!(:file_path) { "./fixtures/example_2.txt" }
       let!(:historian) { HistorianHysteria.new(file_path) }
+
+      describe "#similarity_scores" do
+        it "creates a hash of the similarity scores" do
+          scores = { "1" => 0, "2" => 0, "3" => 3, "4" => 1 }
+
+          expect(historian.similarity_scores).to eq(scores)
+        end
+      end
+
+      describe "#multiplied_scores" do
+        it "creates a list after multiplying each element on the left list by its similarity score" do
+          multiplied_scores = [9, 4, 0, 0, 9, 9]
+
+          expect(historian.multiplied_scores).to match_array(multiplied_scores)
+        end
+      end
+
+      describe "#sum_of_multiplied_scores" do
+        it "adds up the list created by #multiplied_scores" do
+          sum_of_multiplied_scores = 31
+
+          expect(historian.sum_of_multiplied_scores).to eq(sum_of_multiplied_scores)
+        end
+      end
     end
   end
 end
