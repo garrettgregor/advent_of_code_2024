@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RedNosedReport
   SAFE_MIN_THRESHOLD = 1
   SAFE_MAX_THRESHOLD = 3
@@ -70,10 +71,11 @@ class RedNosedReport
     count
   end
 
-  def problem_dampener_safe_reports # rubocop:disable Metrics/MethodLength
+  def problem_dampener_safe_reports # rubocop:disable Metrics/MethodLength,Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     count = 0
     unsafe_levels = []
     safe_without_problem_dampener = []
+    safe_with_problem_dampener = []
 
     levels.each do |level|
       if (all_decreasing?(level) || all_increasing?(level)) && within_thresholds?(level)
@@ -91,69 +93,14 @@ class RedNosedReport
         copy = level.dup
         copy.slice!(a)
 
-        if (all_decreasing?(copy) || all_increasing?(copy)) && within_thresholds?(copy)
-          require 'pry'; binding.pry
+        next unless (all_decreasing?(copy) || all_increasing?(copy)) && within_thresholds?(copy)
 
-        end
-        require 'pry'; binding.pry
-
-
+        count += 1
+        safe_with_problem_dampener << copy
+        break
       end
     end
 
-    require "pry"
-    binding.pry
-
-    count
-  end
-
-  def make_safe!(report)
-    if is_otherwise_ascending?(report)
-      report.each_cons(2) do |r|
-        if r[0] >= r[1]
-          report.slice!(report.index(r[0]))
-          return report
-        end
-      end
-    elsif is_otherwise_descending?(report)
-      report.each_cons(2) do |r|
-        if r[1] >= r[0]
-          report.slice!(report.index(r[1]))
-          return report
-        end
-      end
-    else
-      report
-    end
-  end
-
-  def is_otherwise_ascending?(report)
-    checks = []
-    elements_removed = 0
-
-    report.each_cons(2) do |r|
-      if r[0] >= r[1] && elements_removed < MAX_NUM_OF_LEVELS_TO_REMOVE
-        elements_removed += 1
-      else
-        checks << (r[0] < r[1])
-      end
-    end
-
-    checks.all?(true)
-  end
-
-  def is_otherwise_descending?(report) # rubocop:disable Naming/PredicateName
-    checks = []
-    elements_removed = 0
-
-    report.each_cons(2) do |r|
-      if r[1] >= r[0] && elements_removed < MAX_NUM_OF_LEVELS_TO_REMOVE
-        elements_removed += 1
-      else
-        checks << (r[0] > r[1])
-      end
-    end
-
-    checks.all?(true)
+    safe_with_problem_dampener.count + safe_without_problem_dampener.count
   end
 end
