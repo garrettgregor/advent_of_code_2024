@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "../spec_helper"
 require "red_nosed_report"
 
 RSpec.describe RedNosedReport do

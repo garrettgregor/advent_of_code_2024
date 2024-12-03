@@ -8,3 +8,4 @@ gem "pry"
 gem "rspec"
 gem "rubocop"
 gem "rubocop-rspec"
+gem "simplecov", require: false, group: :test
