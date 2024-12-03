@@ -8,6 +8,8 @@
 # where the inspected file is and continue its way up to the root directory.
 #
 # See https://docs.rubocop.org/rubocop/configuration
+require:
+  - rubocop-rspec
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
@@ -16,4 +18,13 @@ Metrics/BlockLength:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false

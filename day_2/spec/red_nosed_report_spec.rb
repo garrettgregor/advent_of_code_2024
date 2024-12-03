@@ -5,22 +5,22 @@ require "red_nosed_report"
 RSpec.describe RedNosedReport do
   describe "#initialize" do
     let!(:file_path) { "./fixtures/example_1.txt" }
-    let!(:report) { RedNosedReport.new(file_path) }
+    let!(:report) { described_class.new(file_path) }
 
     it "starts with a number of levels" do
       levels = [[7, 6, 4, 2, 1], [1, 2, 7, 8, 9], [9, 7, 6, 2, 1], [1, 3, 2, 4, 5], [8, 6, 4, 4, 1], [1, 3, 6, 7, 9]]
 
-      expect(report).to be_a(RedNosedReport)
+      expect(report).to be_a(described_class)
       expect(report.levels).to eq(levels)
     end
   end
 
   describe "instance_methods" do
-    context "part 1" do
+    context "when solving part 1" do
       let!(:file_path) { "./fixtures/example_1.txt" }
       let!(:puzzle_input) { "./fixtures/puzzle_input_1.txt" }
-      let!(:report) { RedNosedReport.new(file_path) }
-      let!(:solver) { RedNosedReport.new(puzzle_input) }
+      let!(:report) { described_class.new(file_path) }
+      let!(:solver) { described_class.new(puzzle_input) }
 
       describe "#all_increasing?" do
         it "returns a boolean if all of the elements in a given array are increasing" do
