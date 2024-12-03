@@ -6,3 +6,4 @@ ruby "3.3.4"
 
 gem "pry"
 gem "rubocop"
+gem "rspec"
