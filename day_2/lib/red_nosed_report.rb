@@ -56,22 +56,6 @@ class RedNosedReport
     count
   end
 
-  def number_of_problem_dampener_safe_reports
-    safe_levels = []
-
-    levels.each do |level|
-      safe_levels << make_safe!(level)
-    end
-
-    count = 0
-
-    safe_levels.each do |safe_level|
-      count += 1 if (all_decreasing?(safe_level) || all_increasing?(safe_level)) && within_thresholds?(safe_level)
-    end
-
-    count
-  end
-
   def problem_dampener_safe_reports # rubocop:disable Metrics/MethodLength,Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     count = 0
     unsafe_levels = []
