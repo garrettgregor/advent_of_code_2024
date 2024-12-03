@@ -53,14 +53,14 @@ RSpec.describe RedNosedReport do
       describe "#within_thresholds?" do
         it "returns a boolean if all of the elements in a given array are within the set thresholds" do
           increase_then_decrease = [1, 3, 2, 4, 5]
-          increase_of_5 = [1, 2, 7, 8, 9]
-          decrease_of_4 = [9, 7, 6, 2, 1]
+          increase_of_five = [1, 2, 7, 8, 9]
+          decrease_of_four = [9, 7, 6, 2, 1]
           decreasing_within_thresholds = [7, 6, 4, 2, 1]
           increasing_within_thresholds = [1, 3, 6, 7, 9]
 
           expect(report.within_thresholds?(increase_then_decrease)).to be(true)
-          expect(report.within_thresholds?(increase_of_5)).to be(false)
-          expect(report.within_thresholds?(decrease_of_4)).to be(false)
+          expect(report.within_thresholds?(increase_of_five)).to be(false)
+          expect(report.within_thresholds?(decrease_of_four)).to be(false)
           expect(report.within_thresholds?(decreasing_within_thresholds)).to be(true)
           expect(report.within_thresholds?(increasing_within_thresholds)).to be(true)
         end

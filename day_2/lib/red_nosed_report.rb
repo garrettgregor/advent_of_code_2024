@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RedNosedReport
   SAFE_MIN_THRESHOLD = 1
   SAFE_MAX_THRESHOLD = 3
