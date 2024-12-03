@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RedNosedReport
   SAFE_MIN_THRESHOLD = 1
   SAFE_MAX_THRESHOLD = 3
@@ -10,9 +8,7 @@ class RedNosedReport
   def initialize(file_path)
     @levels = File.open(file_path).map do |line|
       to_be_converted = line.strip.split(/\D/).reject(&:empty?)
-      to_be_converted.map do |num|
-        num.to_i
-      end
+      to_be_converted.map(&:to_i)
     end
   end
 
@@ -42,7 +38,7 @@ class RedNosedReport
     report.each_cons(2) do |r|
       value_to_check = (r[0] - r[1]).abs
 
-      checks << ((SAFE_MIN_THRESHOLD <= value_to_check) && (value_to_check <= SAFE_MAX_THRESHOLD))
+      checks << ((value_to_check >= SAFE_MIN_THRESHOLD) && (value_to_check <= SAFE_MAX_THRESHOLD))
     end
 
     checks.all?(true)
@@ -52,7 +48,7 @@ class RedNosedReport
     count = 0
 
     levels.each do |level|
-      count += 1 if ((all_decreasing?(level) || all_increasing?(level)) && within_thresholds?(level))
+      count += 1 if (all_decreasing?(level) || all_increasing?(level)) && within_thresholds?(level)
     end
 
     count
@@ -68,8 +64,45 @@ class RedNosedReport
     count = 0
 
     safe_levels.each do |safe_level|
-      count += 1 if ((all_decreasing?(safe_level) || all_increasing?(safe_level)) && within_thresholds?(safe_level))
+      count += 1 if (all_decreasing?(safe_level) || all_increasing?(safe_level)) && within_thresholds?(safe_level)
     end
+
+    count
+  end
+
+  def problem_dampener_safe_reports # rubocop:disable Metrics/MethodLength
+    count = 0
+    unsafe_levels = []
+    safe_without_problem_dampener = []
+
+    levels.each do |level|
+      if (all_decreasing?(level) || all_increasing?(level)) && within_thresholds?(level)
+        count += 1
+        safe_without_problem_dampener << level
+      else
+        unsafe_levels << level
+      end
+    end
+
+    unsafe_levels.each do |level|
+      n = level.count - 1
+
+      (0..n).each do |a|
+        copy = level.dup
+        copy.slice!(a)
+
+        if (all_decreasing?(copy) || all_increasing?(copy)) && within_thresholds?(copy)
+          require 'pry'; binding.pry
+
+        end
+        require 'pry'; binding.pry
+
+
+      end
+    end
+
+    require "pry"
+    binding.pry
 
     count
   end
@@ -90,7 +123,7 @@ class RedNosedReport
         end
       end
     else
-      return report
+      report
     end
   end
 
@@ -109,7 +142,7 @@ class RedNosedReport
     checks.all?(true)
   end
 
-  def is_otherwise_descending?(report)
+  def is_otherwise_descending?(report) # rubocop:disable Naming/PredicateName
     checks = []
     elements_removed = 0
 
