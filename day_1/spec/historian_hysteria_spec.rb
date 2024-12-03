@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
+require "../spec_helper"
 require "historian_hysteria"
 
 RSpec.describe HistorianHysteria do
   describe "#initialize" do
     let!(:file_path) { "./fixtures/example_1.txt" }
-    let!(:historian) { HistorianHysteria.new(file_path) }
+    let!(:historian) { described_class.new(file_path) }
 
     it "starts with a list" do
       list = [%w[3 4], %w[4 3], %w[2 5], %w[1 3], %w[3 9], %w[3 3]]
 
-      expect(historian).to be_a(HistorianHysteria)
+      expect(historian).to be_a(described_class)
       expect(historian.list).to eq(list)
     end
 
@@ -24,9 +25,9 @@ RSpec.describe HistorianHysteria do
   end
 
   describe "instance_methods" do
-    context "part 1" do
+    context "when solving part 1" do
       let!(:file_path) { "./fixtures/example_1.txt" }
-      let!(:historian) { HistorianHysteria.new(file_path) }
+      let!(:historian) { described_class.new(file_path) }
 
       describe "#differences" do
         it "creates a list of the differences between the two lists" do
@@ -45,9 +46,9 @@ RSpec.describe HistorianHysteria do
       end
     end
 
-    context "part 2" do
+    context "when solving part 2" do
       let!(:file_path) { "./fixtures/example_2.txt" }
-      let!(:historian) { HistorianHysteria.new(file_path) }
+      let!(:historian) { described_class.new(file_path) }
 
       describe "#similarity_scores" do
         it "creates a hash of the similarity scores" do
