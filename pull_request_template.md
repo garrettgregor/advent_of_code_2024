@@ -7,11 +7,11 @@
 - [ ] This broke some stuff
 - [ ] This broke everything
 
-## Implements/Fixes:
+## Implements/Fixes
 
 closes #
 
-## Test Coverage @ xxx.xx%
+## Test Coverage
 
 - [ ] Wrote Tests
 - [ ] Implemented
@@ -44,8 +44,7 @@ Checklist:
   ![its_working_star_wars](https://user-images.githubusercontent.com/118634754/231820290-a1aa78b5-840a-49aa-9424-4929a96a8323.gif) -->
 ![happy birds](https://gifdb.com/images/high/happy-angry-birds-hatchlings-o3kroddmoac97wsc.gif)
 
-### Co-Author Information
+<!-- ### Co-Author Information
 Commit Message ...
 
-
-Co-authored-by: Garrett Gregor <118634754+garrettgregor@users.noreply.github.com>
+Co-authored-by: Garrett Gregor <118634754+garrettgregor@users.noreply.github.com> -->
