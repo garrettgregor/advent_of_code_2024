@@ -3,6 +3,7 @@
 class RedNosedReport
   SAFE_MIN_THRESHOLD = 1
   SAFE_MAX_THRESHOLD = 3
+  MAX_NUM_OF_LEVELS_TO_REMOVE = 1
 
   attr_reader :levels
 
@@ -55,5 +56,71 @@ class RedNosedReport
     end
 
     count
+  end
+
+  def number_of_problem_dampener_safe_reports
+    safe_levels = []
+
+    levels.each do |level|
+      safe_levels << make_safe!(level)
+    end
+
+    count = 0
+
+    safe_levels.each do |safe_level|
+      count += 1 if ((all_decreasing?(safe_level) || all_increasing?(safe_level)) && within_thresholds?(safe_level))
+    end
+
+    count
+  end
+
+  def make_safe!(report)
+    if is_otherwise_ascending?(report)
+      report.each_cons(2) do |r|
+        if r[0] >= r[1]
+          report.slice!(report.index(r[0]))
+          return report
+        end
+      end
+    elsif is_otherwise_descending?(report)
+      report.each_cons(2) do |r|
+        if r[1] >= r[0]
+          report.slice!(report.index(r[1]))
+          return report
+        end
+      end
+    else
+      return report
+    end
+  end
+
+  def is_otherwise_ascending?(report)
+    checks = []
+    elements_removed = 0
+
+    report.each_cons(2) do |r|
+      if r[0] >= r[1] && elements_removed < MAX_NUM_OF_LEVELS_TO_REMOVE
+        elements_removed += 1
+      else
+        checks << (r[0] < r[1])
+      end
+    end
+
+    checks.all?(true)
+  end
+
+  def is_otherwise_descending?(report)
+    checks = []
+    elements_removed = 0
+
+    report.each_cons(2) do |r|
+      if r[1] >= r[0] && elements_removed < MAX_NUM_OF_LEVELS_TO_REMOVE
+        elements_removed += 1
+      else
+        checks << (r[0] > r[1])
+      end
+    end
+
+    checks.all?(true)
   end
 end
