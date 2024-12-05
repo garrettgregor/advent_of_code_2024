@@ -17,6 +17,9 @@ Style/StringLiterals:
 Metrics/BlockLength:
   Enabled: false
 
+Naming/VariableNumber:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
@@ -27,4 +30,7 @@ RSpec/ExampleLength:
   Enabled: false
 
 RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/LetSetup:
   Enabled: false
