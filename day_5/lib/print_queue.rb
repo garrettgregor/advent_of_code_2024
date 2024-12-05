@@ -63,4 +63,12 @@ class PrintQueue
       follows_rules?(update) ? correct_updates << update : incorrect_updates << update
     end
   end
+
+  def find_correct_middles
+    separate_correct_and_incorrect_updates
+
+    correct_updates.map do |update|
+      update[update.length / 2]
+    end
+  end
 end
