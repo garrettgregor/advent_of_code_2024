@@ -26,7 +26,7 @@ RSpec.describe PrintQueue do
       end
 
       describe "#parsed_rules" do
-        it "starts with rules and update, and space for correct and incorrect updates" do
+        it "parses the raw rules" do
           results = {
             47 => [53, 13, 61, 29],
             97 => [13, 61, 47, 29, 53, 75],
@@ -37,6 +37,21 @@ RSpec.describe PrintQueue do
           }
 
           expect(instance.parsed_rules).to eq(results)
+        end
+      end
+
+      describe "#parsed_updates" do
+        it "parses the raw updates and keeps the lines preserved" do
+          results = [
+            [75, 47, 61, 53, 29],
+            [97, 61, 53, 29, 13],
+            [75, 29, 13],
+            [75, 97, 47, 61, 53],
+            [61, 13, 29],
+            [97, 13, 75, 29, 47]
+          ]
+
+          expect(instance.parsed_updates).to eq(results)
         end
       end
     end
