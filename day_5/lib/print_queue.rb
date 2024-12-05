@@ -57,4 +57,10 @@ class PrintQueue
 
     true
   end
+
+  def separate_correct_and_incorrect_updates
+    parsed_updates.each do |update|
+      follows_rules?(update) ? correct_updates << update : incorrect_updates << update
+    end
+  end
 end
