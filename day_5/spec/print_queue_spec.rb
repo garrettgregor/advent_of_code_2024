@@ -72,6 +72,25 @@ RSpec.describe PrintQueue do
           expect(instance.follows_rules?(update_6)).to be(false)
         end
       end
+
+      describe "#separate_correct_and_incorrect_updates" do
+        it "checks whether a given update follows the rules" do
+          update_1 = [75, 47, 61, 53, 29]
+          update_2 = [97, 61, 53, 29, 13]
+          update_3 = [75, 29, 13]
+          update_4 = [75, 97, 47, 61, 53]
+          update_5 = [61, 13, 29]
+          update_6 = [97, 13, 75, 29, 47]
+
+          correct_results = [update_1, update_2, update_3]
+          incorrect_results = [update_4, update_5, update_6]
+
+          instance.separate_correct_and_incorrect_updates
+
+          expect(instance.correct_updates).to eq(correct_results)
+          expect(instance.incorrect_updates).to eq(incorrect_results)
+        end
+      end
     end
   end
 end
