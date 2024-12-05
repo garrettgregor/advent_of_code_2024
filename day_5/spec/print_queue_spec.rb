@@ -91,6 +91,14 @@ RSpec.describe PrintQueue do
           expect(instance.incorrect_updates).to eq(incorrect_results)
         end
       end
+
+      describe "#find_correct_middles" do
+        it "checks whether a given update follows the rules" do
+          results = [61, 53, 29]
+
+          expect(instance.find_correct_middles).to eq(results)
+        end
+      end
     end
   end
 end
