@@ -71,4 +71,8 @@ class PrintQueue
       update[update.length / 2]
     end
   end
+
+  def sum_correct_middles
+    find_correct_middles.sum
+  end
 end
