@@ -74,7 +74,7 @@ RSpec.describe PrintQueue do
       end
 
       describe "#separate_correct_and_incorrect_updates" do
-        it "checks whether a given update follows the rules" do
+        it "distributes updates into correct and incorrect update lists" do
           update_1 = [75, 47, 61, 53, 29]
           update_2 = [97, 61, 53, 29, 13]
           update_3 = [75, 29, 13]
@@ -93,10 +93,18 @@ RSpec.describe PrintQueue do
       end
 
       describe "#find_correct_middles" do
-        it "checks whether a given update follows the rules" do
+        it "finds the middle elements of the correct updates" do
           results = [61, 53, 29]
 
           expect(instance.find_correct_middles).to eq(results)
+        end
+      end
+
+      describe "#sum_correct_middles" do
+        it "sums up the middle elements" do
+          result = 143
+
+          expect(instance.sum_correct_middles).to eq(result)
         end
       end
     end
