@@ -28,4 +28,14 @@ class PrintQueue
 
     results
   end
+
+  def parsed_updates
+    results = []
+
+    raw_updates.each do |update|
+      results << update.split(",").map(&:to_i)
+    end
+
+    results
+  end
 end
