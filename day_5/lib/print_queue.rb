@@ -38,4 +38,23 @@ class PrintQueue
 
     results
   end
+
+  def follows_rules?(update) # rubocop:disable Metrics/MethodLength
+    update = update.dup
+
+    n = update.length - 1
+
+    n.times do
+      rule_key = update.shift
+      subsequent_set = update
+      elements_that_show_follow_if_they_exist = parsed_rules[rule_key]
+
+      subsequent_set.each do |el|
+        # use safe nav here in the event a rule key does not exist
+        return false unless elements_that_show_follow_if_they_exist&.include?(el)
+      end
+    end
+
+    true
+  end
 end
