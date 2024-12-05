@@ -13,4 +13,19 @@ class PrintQueue
     @correct_updates = []
     @incorrect_updates = []
   end
+
+  def parsed_rules
+    results = {}
+
+    raw_rules.each do |rule|
+      key, value = rule.strip.split("|")
+      if !results[key.to_i]
+        results[key.to_i] = [value.to_i]
+      else
+        results[key.to_i] << value.to_i
+      end
+    end
+
+    results
+  end
 end
