@@ -54,6 +54,24 @@ RSpec.describe PrintQueue do
           expect(instance.parsed_updates).to eq(results)
         end
       end
+
+      describe "#follows_rules?" do
+        it "checks whether a given update follows the rules" do
+          update_1 = [75, 47, 61, 53, 29]
+          update_2 = [97, 61, 53, 29, 13]
+          update_3 = [75, 29, 13]
+          update_4 = [75, 97, 47, 61, 53]
+          update_5 = [61, 13, 29]
+          update_6 = [97, 13, 75, 29, 47]
+
+          expect(instance.follows_rules?(update_1)).to be(true)
+          expect(instance.follows_rules?(update_2)).to be(true)
+          expect(instance.follows_rules?(update_3)).to be(true)
+          expect(instance.follows_rules?(update_4)).to be(false)
+          expect(instance.follows_rules?(update_5)).to be(false)
+          expect(instance.follows_rules?(update_6)).to be(false)
+        end
+      end
     end
   end
 end
