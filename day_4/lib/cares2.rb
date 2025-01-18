@@ -191,4 +191,48 @@ word = "XMAS"
 
 # Count occurrences of the word
 result = count_xmas_occurrences(grid, word)
-puts "The word '#{word}' appears #{result} times."
+puts "Part 1: The word '#{word}' appears #{result} times."
+
+# Define the directions for MAS within the X shape
+X_SHAPE_DIRECTIONS = [
+  [[-1, -1], [1, 1]], # Top-left to bottom-right diagonal
+  [[-1, 1], [1, -1]]  # Top-right to bottom-left diagonal
+]
+
+def count_x_mas_occurrences(grid)
+  rows = grid.length
+  cols = grid[0].length
+  count = 0
+
+  # Helper method to check if "MAS" exists in a specific direction
+  def mas_exists?(grid, start_row, start_col, dir_row, dir_col)
+    mas = "MAS"
+    mas_reverse = mas.reverse
+    mas.chars.each_with_index do |char, i|
+      r = start_row + i * dir_row
+      c = start_col + i * dir_col
+      return false if r < 0 || r >= grid.length || c < 0 || c >= grid[0].length
+      return false unless grid[r][c] == char || grid[r][c] == mas_reverse[i]
+    end
+    true
+  end
+
+  # Iterate through each cell in the grid to find X-MAS patterns
+  (1...(rows - 1)).each do |row|
+    (1...(cols - 1)).each do |col|
+      # Check both diagonal directions for X-MAS
+      X_SHAPE_DIRECTIONS.each do |(dir1, dir2)|
+        if mas_exists?(grid, row, col, dir1[0], dir1[1]) &&
+           mas_exists?(grid, row, col, dir2[0], dir2[1])
+          count += 1
+        end
+      end
+    end
+  end
+
+  count
+end
+
+# Count occurrences of X-MAS patterns
+result = count_x_mas_occurrences(grid)
+puts "Part 2: The X-MAS pattern appears #{result} times."
